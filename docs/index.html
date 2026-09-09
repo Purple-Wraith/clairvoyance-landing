@@ -474,8 +474,6 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
   display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 6px;
 }
 .perf-card-rec small{color:var(--t3);font-size:11px;font-weight:400;font-family:var(--mono);white-space:nowrap}
-.perf-card-bar{height:3px;background:rgba(255,255,255,.08);border-radius:2px;margin:9px 0}
-.perf-card-bar-fill{height:100%;border-radius:2px;background:var(--cyan)}
 .perf-card-stats{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-weight:700;font-size:16px}
 .perf-updated{
   font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--purple);margin-top:16px;
@@ -720,7 +718,7 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
   color:#f000ff;border:1px solid rgba(240,0,255,.4)}
 
 /* ── Sport selector (build-your-own bundle) ──────────────── */
-.sport-select-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:28px}
+.sport-select-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:28px}
 @media(max-width:768px){.sport-select-grid{grid-template-columns:repeat(3,1fr)}}
 .sport-select-card{
   padding:16px 10px;text-align:center;cursor:pointer;user-select:none;
@@ -1709,19 +1707,16 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
         const periods = data.periods || [];
         grid.innerHTML = periods.map(p => {
           const hasData = p.n > 0;
-          const barW = hasData ? Math.round((p.pct || 0) * 100) : 0;
           const pc = pctColor(p.pct);
           return `<div class="glass-card perf-card">
             <div class="perf-card-lbl">${p.label}${p.sub ? '<span>'+p.sub+'</span>' : ''}</div>
             ${hasData ? `
             <div class="perf-card-rec">${p.w}W&#8211;${p.l}L</div>
-            <div class="perf-card-bar"><div class="perf-card-bar-fill" style="width:${barW}%;background:${pc}"></div></div>
             <div class="perf-card-stats">
               <span style="color:${pc}">${(p.pct*100).toFixed(1)}%</span>
               <span style="color:${p.units>=0?'#00da88':'#ff2090'}">${p.units>=0?'+':''}${p.units.toFixed(1)}u</span>
             </div>` : `
             <div class="perf-card-rec">0W&#8211;0L</div>
-            <div class="perf-card-bar"></div>
             <div class="perf-card-stats"><span style="color:var(--t3)">N/A</span><span style="color:var(--t3)">N/A</span></div>`}
           </div>`;
         }).join('');
