@@ -1231,16 +1231,9 @@ footer::before{
   <span class="section-label reveal">// 02 — COVERAGE</span>
   <h2 class="section-title reveal">What The Engine Covers</h2>
   <p class="section-body reveal">
-    11 leagues across 5 sports — each with its own calibrated model built around
+    10 leagues across 4 sports — each with its own calibrated model built around
     the unique statistical structure and market dynamics of the sports and leagues.
   </p>
-
-  <div class="sports-group reveal">
-    <span class="sports-group-label">// BASEBALL</span>
-    <div class="sports-grid">
-      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr">MLB</span><div class="sport-name">MAJOR LEAGUE BASEBALL</div></div>
-    </div>
-  </div>
 
   <div class="sports-group reveal">
     <span class="sports-group-label">// BASKETBALL</span>
@@ -1292,7 +1285,6 @@ footer::before{
     <div class="sport-card glass-card sport-select-card" data-sport="cfb"><span class="sport-abbr">CFB</span><div class="sport-name">COLLEGE FOOTBALL</div></div>
     <div class="sport-card glass-card sport-select-card" data-sport="nba"><span class="sport-abbr">NBA</span><div class="sport-name">NAT'L BASKETBALL ASSOC.</div></div>
     <div class="sport-card glass-card sport-select-card" data-sport="soccer"><span class="sport-abbr">SOCCER</span><div class="sport-name">EUROPEAN + MLS</div></div>
-    <div class="sport-card glass-card sport-select-card" data-sport="mlb"><span class="sport-abbr">MLB</span><div class="sport-name">MAJOR LEAGUE BASEBALL</div></div>
     <div class="sport-card glass-card sport-select-card" data-sport="hockey"><span class="sport-abbr">HOCKEY</span><div class="sport-name">NHL</div></div>
   </div>
 
@@ -1315,14 +1307,13 @@ footer::before{
     <div class="price-row glass-card"><div class="price-left"><span class="price-name">2 SPORTS</span><span class="price-detail">$15.00 avg / sport</span></div><div class="price-right"><span class="price-amount">$30</span><span class="price-period">/ 30 days</span></div></div>
     <div class="price-row glass-card"><div class="price-left"><span class="price-name">3 SPORTS</span><span class="price-detail">$13.33 avg / sport</span></div><div class="price-right"><span class="price-amount">$40</span><span class="price-period">/ 30 days</span></div></div>
     <div class="price-row glass-card"><div class="price-left"><span class="price-name">4 SPORTS</span><span class="price-detail">$12.50 avg / sport</span></div><div class="price-right"><span class="price-amount">$50</span><span class="price-period">/ 30 days</span></div></div>
-    <div class="price-row glass-card"><div class="price-left"><span class="price-name">5 SPORTS</span><span class="price-detail">$12.00 avg / sport</span></div><div class="price-right"><span class="price-amount">$60</span><span class="price-period">/ 30 days</span></div></div>
-    <div class="price-row glass-card price-best"><div class="price-left"><span class="price-name">6 SPORTS — ALL ACCESS</span><span class="price-detail">$10.83 avg / sport</span></div><div class="price-right"><span class="price-amount">$65</span><span class="price-period">/ 30 days</span></div></div>
+    <div class="price-row glass-card price-best"><div class="price-left"><span class="price-name">5 SPORTS — ALL ACCESS</span><span class="price-detail">$12.00 avg / sport</span></div><div class="price-right"><span class="price-amount">$60</span><span class="price-period">/ 30 days</span></div></div>
   </div>
 
   <script>
     (function(){
-      var PRICING = {1:20,2:30,3:40,4:50,5:60,6:65};
-      var LABELS = {nfl:'NFL',cfb:'CFB',nba:'NBA',mlb:'MLB',hockey:'Hockey',soccer:'Soccer'};
+      var PRICING = {1:20,2:30,3:40,4:50,5:60};
+      var LABELS = {nfl:'NFL',cfb:'CFB',nba:'NBA',hockey:'Hockey',soccer:'Soccer'};
       var TO_EMAIL = 'clairvoyanceengine@gmail.com';
       var selected = new Set();
       var grid = document.getElementById('sportSelectGrid');
@@ -1707,9 +1698,11 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
   if(!grid) return;
   const pctColor = pct => pct === null ? 'var(--t3)' : pct >= .62 ? '#00da88' : pct >= .5 ? 'var(--cyan)' : '#ff2090';
   function loadEnginePerformance(){
-    // Subscriber-scoped snapshot (nfl/cfb/nba/mlb/nhl/soccer only) -- not
+    // Subscriber-scoped snapshot (nfl/cfb/nba/nhl/soccer only) -- not
     // the full engine_performance.json, which also includes personal-
     // use-only WNBA/tennis/etc picks. Explicit request, 2026-09-03.
+    // MLB dropped 2026-09-09 when it was retired from the engine
+    // entirely (6 sellable products became 5).
     fetch('https://purple-wraith.github.io/clairvoyance-backend/engine_performance_subscriber.json', {cache:'no-store'})
       .then(r => r.ok ? r.json() : Promise.reject(r.status))
       .then(data => {
@@ -1767,7 +1760,13 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
   // Hockey added 2026-09-03 alongside auto-lock being turned on for them
   // (they now route to the owner-only "other" email and will start
   // producing real settled bets, which would otherwise leak in here).
-  const HIDDEN_LEAGUES = new Set(['WNBA', 'ATP', 'WTA', 'SHL', 'LIIGA', 'College Hockey']);
+  // MLB added 2026-09-09: retired from the engine entirely (not merely
+  // personal-use), so the backend's own JSON generator was also fixed to
+  // stop including it -- this stays as a defense-in-depth safety net
+  // against exactly the kind of stale-cached-JSON gap that let a real
+  // MLB row leak onto this page for several hours after that fix landed,
+  // before the next scheduled refresh caught up.
+  const HIDDEN_LEAGUES = new Set(['WNBA', 'ATP', 'WTA', 'SHL', 'LIIGA', 'College Hockey', 'MLB']);
 
   function renderPeriod(){
     if(!sperfData) return;
