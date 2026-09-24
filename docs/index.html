@@ -471,7 +471,7 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
   padding:20px 26px;flex-wrap:wrap;
 }
 .sperf-name{
-  font-family:var(--orb);font-size:18px;font-weight:900;letter-spacing:1px;color:var(--t1);
+  font-family:var(--orb);font-size:18px;font-weight:900;letter-spacing:1px;color:var(--cyan);
   text-transform:uppercase;
 }
 .sperf-name-abbr{display:none}
@@ -1597,7 +1597,7 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
   const grid = document.getElementById('perfGrid');
   const updated = document.getElementById('perfUpdated');
   if(!grid) return;
-  const pctColor = pct => pct === null ? 'var(--t3)' : pct >= .62 ? '#00da88' : pct >= .5 ? 'var(--cyan)' : '#ff2090';
+  const pctColor = pct => pct === null ? 'var(--t3)' : '#00e644';
   function loadEnginePerformance(){
     // Subscriber-scoped snapshot (nfl/cfb/nba/nhl/soccer only) -- not
     // the full engine_performance.json, which also includes personal-
@@ -1617,7 +1617,7 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
             <div class="perf-card-rec">${p.w}W&#8211;${p.l}L</div>
             <div class="perf-card-stats">
               <span style="color:${pc}">${(p.pct*100).toFixed(1)}%</span>
-              <span style="color:${p.units>=0?'#00da88':'#ff2090'}">${p.units>=0?'+':''}${p.units.toFixed(1)}u</span>
+              <span style="color:#00e644">${p.units>=0?'+':''}${p.units.toFixed(1)}u</span>
             </div>` : `
             <div class="perf-card-rec">0W&#8211;0L</div>
             <div class="perf-card-stats"><span style="color:var(--t3)">N/A</span><span style="color:var(--t3)">N/A</span></div>`}
