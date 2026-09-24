@@ -521,9 +521,9 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 }
 .how-marker{
   width:32px;height:2px;
-  background:linear-gradient(90deg,var(--purple),var(--cyan));
+  background:var(--cyan);
   border-radius:1px;margin-bottom:16px;
-  box-shadow:0 0 8px rgba(240,0,255,.4),0 0 16px rgba(0,240,255,.2);
+  box-shadow:0 0 8px rgba(0,240,255,.5),0 0 16px rgba(0,240,255,.25);
 }
 .how-title{
   font-family:var(--orb);font-size:11px;font-weight:700;letter-spacing:2px;
@@ -1147,7 +1147,7 @@ footer::before{
   <span class="section-label reveal">// 02 — COVERAGE</span>
   <h2 class="section-title reveal">What The Engine Covers</h2>
   <p class="section-body reveal">
-    12 leagues across 4 sports — each with its own calibrated model built around
+    13 leagues across 4 sports — each with its own calibrated model built around
     the unique statistical structure and market dynamics of the sports and leagues.
   </p>
 
@@ -1172,13 +1172,14 @@ footer::before{
       <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U) + Player Props"><span class="sport-abbr">NHL</span><div class="sport-name">NAT'L HOCKEY LEAGUE</div></div>
       <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr" style="font-size:20px;letter-spacing:0">LIIGA</span><div class="sport-name">FINNISH LIIGA</div></div>
       <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr">SHL</span><div class="sport-name">SWEDISH HOCKEY LEAGUE</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr">NLA</span><div class="sport-name">SWISS NATIONAL LEAGUE</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr" style="font-size:10px;letter-spacing:0">EXTRALIGA</span><div class="sport-name">CZECH EXTRALIGA</div></div>
     </div>
   </div>
 
   <div class="sports-group reveal">
     <span class="sports-group-label">// SOCCER</span>
     <div class="sports-grid">
-      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr" style="font-size:12px;letter-spacing:0">BUNDESLIGA</span><div class="sport-name">GERMAN BUNDESLIGA</div></div>
       <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr" style="font-size:14px;letter-spacing:0">LA LIGA</span><div class="sport-name">SPANISH LA LIGA</div></div>
       <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr">MLS</span><div class="sport-name">MAJOR LEAGUE SOCCER</div></div>
       <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr" style="font-size:13px;letter-spacing:0">PREMIER</span><div class="sport-name">ENGLISH PREMIER LEAGUE</div></div>
@@ -1203,7 +1204,7 @@ footer::before{
     <div class="sport-card glass-card sport-select-card" data-sport="cfb"><span class="sport-abbr">CFB</span><div class="sport-name">COLLEGE FOOTBALL</div></div>
     <div class="sport-card glass-card sport-select-card" data-sport="nba"><span class="sport-abbr">NBA</span><div class="sport-name">NAT'L BASKETBALL ASSOC.</div></div>
     <div class="sport-card glass-card sport-select-card" data-sport="soccer"><span class="sport-abbr">SOCCER</span><div class="sport-name">EUROPEAN + MLS</div></div>
-    <div class="sport-card glass-card sport-select-card" data-sport="hockey"><span class="sport-abbr">HOCKEY</span><div class="sport-name">NHL + LIIGA + SHL</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="hockey"><span class="sport-abbr">HOCKEY</span><div class="sport-name">NHL + LIIGA + SHL + NLA + EXTRALIGA</div></div>
   </div>
 
   <div class="price-readout glass-card reveal">
@@ -1653,17 +1654,22 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
 
   // Not sold to subscribers (see the Coverage section above) -- hidden
   // from this public-facing breakdown even though the backend's own JSON
-  // still includes them for the personal-use dashboard. SHL/LIIGA/College
-  // Hockey added 2026-09-03 alongside auto-lock being turned on for them
-  // (they now route to the owner-only "other" email and will start
-  // producing real settled bets, which would otherwise leak in here).
+  // still includes them for the personal-use dashboard. College Hockey
+  // added 2026-09-03 alongside auto-lock being turned on for it (routes
+  // to the owner-only "other" email and produces real settled bets,
+  // which would otherwise leak in here).
+  // SHL/LIIGA removed 2026-09-23: both promoted into the real, sold
+  // Hockey product (alongside NHL/NLA/EXTRALIGA -- see Coverage and
+  // Build Your Access above), so they no longer belong on this hidden
+  // list. NLA/EXTRALIGA were never added here to begin with, so they
+  // already show once real settled data exists for them.
   // MLB added 2026-09-09: retired from the engine entirely (not merely
   // personal-use), so the backend's own JSON generator was also fixed to
   // stop including it -- this stays as a defense-in-depth safety net
   // against exactly the kind of stale-cached-JSON gap that let a real
   // MLB row leak onto this page for several hours after that fix landed,
   // before the next scheduled refresh caught up.
-  const HIDDEN_LEAGUES = new Set(['WNBA', 'ATP', 'WTA', 'SHL', 'LIIGA', 'College Hockey', 'MLB']);
+  const HIDDEN_LEAGUES = new Set(['WNBA', 'ATP', 'WTA', 'College Hockey', 'MLB']);
 
   function renderPeriod(){
     if(!sperfData) return;
