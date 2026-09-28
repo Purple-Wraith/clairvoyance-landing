@@ -1668,7 +1668,10 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
   // against exactly the kind of stale-cached-JSON gap that let a real
   // MLB row leak onto this page for several hours after that fix landed,
   // before the next scheduled refresh caught up.
-  const HIDDEN_LEAGUES = new Set(['WNBA', 'ATP', 'WTA', 'College Hockey', 'MLB']);
+  // Bundesliga/MLS added 2026-09-28: retired and purged from display
+  // (2026-09-23 / 2026-09-27). The backend's leagueMap drops them too;
+  // listed here for the same stale-cached-JSON reason as MLB.
+  const HIDDEN_LEAGUES = new Set(['WNBA', 'ATP', 'WTA', 'College Hockey', 'MLB', 'Bundesliga', 'MLS']);
 
   function renderPeriod(){
     if(!sperfData) return;
