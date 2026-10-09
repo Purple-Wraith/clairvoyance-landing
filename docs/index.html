@@ -465,7 +465,21 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 }
 .sperf-toggle-btn.act{background:rgba(240,0,255,.22);border-color:rgba(240,0,255,.6);color:#fff}
 .sperf-toggle-btn:hover{border-color:rgba(240,0,255,.55)}
+.sperf-sports{display:flex;flex-wrap:wrap;gap:8px;margin:-4px 0 18px}
+.sperf-sport-btn{
+  font-family:var(--tech);font-size:12px;letter-spacing:1.5px;padding:7px 16px;
+  border-radius:20px;border:1px solid rgba(0,240,255,.3);background:rgba(0,240,255,.05);
+  color:var(--t2);cursor:pointer;transition:all .2s;text-transform:uppercase;
+}
+.sperf-sport-btn.act{background:rgba(0,240,255,.18);border-color:rgba(0,240,255,.6);color:#fff}
+.sperf-sport-btn:hover{border-color:rgba(0,240,255,.55)}
 .sperf-stack{display:flex;flex-direction:column;gap:10px;max-width:1200px}
+.sperf-grp{
+  font-family:var(--tech);font-size:13px;letter-spacing:3px;color:var(--cyan);
+  text-transform:uppercase;padding-left:2px;margin-top:14px;
+  text-shadow:0 0 10px rgba(0,240,255,.4);
+}
+.sperf-grp:first-child{margin-top:0}
 .sperf-row{
   display:flex;align-items:center;justify-content:space-between;gap:16px;
   padding:20px 26px;flex-wrap:wrap;
@@ -531,6 +545,9 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
   text-shadow:0 0 8px rgba(240,0,255,.4),0 0 20px rgba(240,0,255,.2);
 }
 .how-text{font-size:13px;color:var(--t2);line-height:1.85;}
+.how-list{list-style:none;margin-top:10px}
+.how-list li{position:relative;padding-left:16px;line-height:1.65;margin-top:6px}
+.how-list li::before{content:'›';position:absolute;left:2px;top:0;color:var(--cyan);text-shadow:0 0 8px rgba(0,240,255,.5);font-weight:700}
 
 /* ── Pipeline ──────────────────────────────────────── */
 #pipeline{background:transparent}
@@ -1049,7 +1066,7 @@ footer::before{
     <p class="hero-desc">
       An advanced sports intelligence engine built around mathematical precision,
       multi-layered ensemble models, and adaptive intelligence. Turning raw data
-      into measurable edge while delivering graded picks, game lines, and player props.
+      into measurable edge while delivering graded picks, game lines, and NBA player props.
     </p>
     <div class="hero-actions">
       <a href="#subscriptions" class="btn-primary">Get Access</a>
@@ -1132,6 +1149,13 @@ footer::before{
     <button type="button" class="sperf-toggle-btn" data-period="thisMonth">This Month</button>
     <button type="button" class="sperf-toggle-btn act" data-period="allTime">All Time</button>
   </div>
+  <div class="sperf-sports reveal" id="sperfSports" role="group" aria-label="Filter by sport">
+    <button type="button" class="sperf-sport-btn act" data-sport="all">All</button>
+    <button type="button" class="sperf-sport-btn" data-sport="football">Football</button>
+    <button type="button" class="sperf-sport-btn" data-sport="basketball">Basketball</button>
+    <button type="button" class="sperf-sport-btn" data-sport="hockey">Hockey</button>
+    <button type="button" class="sperf-sport-btn" data-sport="soccer">Soccer</button>
+  </div>
   <div class="sperf-stack reveal" id="sperfStack">
     <div class="perf-loading">LOADING SPORT PERFORMANCE…</div>
   </div>
@@ -1169,7 +1193,7 @@ footer::before{
   <div class="sports-group reveal">
     <span class="sports-group-label">// HOCKEY</span>
     <div class="sports-grid">
-      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U) + Player Props"><span class="sport-abbr">NHL</span><div class="sport-name">NAT'L HOCKEY LEAGUE</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr">NHL</span><div class="sport-name">NAT'L HOCKEY LEAGUE</div></div>
       <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr" style="font-size:20px;letter-spacing:0">LIIGA</span><div class="sport-name">FINNISH LIIGA</div></div>
       <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr">SHL</span><div class="sport-name">SWEDISH HOCKEY LEAGUE</div></div>
       <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr">NLA</span><div class="sport-name">SWISS NATIONAL LEAGUE</div></div>
@@ -1196,14 +1220,14 @@ footer::before{
 <section>
   <span class="section-label reveal">// 03 — SUBSCRIPTIONS</span>
   <h2 class="section-title reveal">Build Your Access</h2>
-  <p class="section-body reveal">Pick any combination of sports — daily graded picks, game lines, and player props delivered straight to your inbox every morning. The more sports you add, the less you pay per sport. 30-day access per purchase.</p>
+  <p class="section-body reveal">Pick any combination of sports — daily graded picks, game lines, and NBA player props delivered straight to your inbox every morning. The more sports you add, the less you pay per sport. 30-day access per purchase.</p>
 
   <div class="sport-select-grid reveal" id="sportSelectGrid">
     <div class="sport-card glass-card sport-select-card" data-sport="nfl"><span class="sport-abbr">NFL</span><div class="sport-name">NAT'L FOOTBALL LEAGUE</div></div>
     <div class="sport-card glass-card sport-select-card" data-sport="cfb"><span class="sport-abbr">CFB</span><div class="sport-name">COLLEGE FOOTBALL</div></div>
     <div class="sport-card glass-card sport-select-card" data-sport="nba"><span class="sport-abbr">NBA</span><div class="sport-name">NAT'L BASKETBALL ASSOC.</div></div>
     <div class="sport-card glass-card sport-select-card" data-sport="soccer"><span class="sport-abbr">SOCCER</span><div class="sport-name">EUROPEAN</div></div>
-    <div class="sport-card glass-card sport-select-card" data-sport="hockey"><span class="sport-abbr">HOCKEY</span><div class="sport-name">NHL + LIIGA + SHL + NLA + EXTRALIGA</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="hockey"><span class="sport-abbr">HOCKEY</span><div class="sport-name">NHL + EUROPEAN</div></div>
   </div>
 
   <div class="price-readout glass-card reveal">
@@ -1297,78 +1321,135 @@ footer::before{
   <span class="section-label reveal">// 04 — METHODOLOGY</span>
   <h2 class="section-title reveal">How The Engine Works</h2>
   <p class="section-body reveal">
-    Six-stage pipeline. From raw data all the way to a graded, deliverable signal —
-    every step is systematic, repeatable, and accountable.
+    Nine steps from raw data to a locked, tracked pick. Every one is systematic,
+    repeatable, and on the public record.
   </p>
 
   <div class="how-grid">
     <div class="how-card glass-card reveal reveal-delay-1">
       <span class="how-num">// 01</span>
       <div class="how-marker"></div>
-      <div class="how-title">RAW DATA FUSION</div>
-      <p class="how-text">
-        The engine continuously ingests raw historical data alongside various signals ranging from
-        form, game conditions, lineup news, and market movement across all covered sports and leagues.
-        Every input is normalized and fused into a unified pipeline that refreshes daily.
-      </p>
+      <div class="how-title">DATA IN</div>
+      <div class="how-text">
+        <p>Team ratings, schedules, results and sportsbook prices for every covered league are pulled in and refreshed automatically.</p>
+      </div>
     </div>
 
     <div class="how-card glass-card reveal reveal-delay-2">
       <span class="how-num">// 02</span>
       <div class="how-marker"></div>
-      <div class="how-title">PROBABILISTIC MODELING</div>
-      <p class="how-text">
-        Each matchup is evaluated through a multi-factor statistical framework that assigns
-        true win, cover, and total probabilities. The model weighs historical patterns,
-        situational context, and current-form indicators — expressed as percentages,
-        not gut feelings.
-      </p>
+      <div class="how-title">ENSEMBLE MODELS</div>
+      <div class="how-text">
+        <p>Win probability is not one model. It is a blend of several:</p>
+        <ul class="how-list">
+          <li>Monte Carlo game simulation (25,000 sims)</li>
+          <li>Elo ratings</li>
+          <li>Bayesian and ratings models</li>
+          <li>Sport-specific models</li>
+        </ul>
+      </div>
     </div>
 
     <div class="how-card glass-card reveal reveal-delay-3">
       <span class="how-num">// 03</span>
       <div class="how-marker"></div>
-      <div class="how-title">MATCH SIMULATOR</div>
-      <p class="how-text">
-        Every matchup across every sport and league is run through a multi-scenario simulation
-        engine before a pick is ever graded. Each contest is simulated thousands of times —
-        accounting for pace, form, matchup dynamics, venue, rest, and market pricing — producing
-        a distribution of outcomes that drives win probability estimates and surfaces hidden edge
-        invisible to standard analysis.
-      </p>
+      <div class="how-title">GAME SIMULATION</div>
+      <div class="how-text">
+        <p>Each game is simulated 25,000 times with sport-specific scoring.</p>
+        <ul class="how-list">
+          <li>NBA: possession-based scoring</li>
+          <li>Hockey: team goals for and against, special teams and goaltending</li>
+          <li>Early season: last season carries most of the hockey rate weight, fading to zero by 20 games played</li>
+        </ul>
+      </div>
     </div>
 
     <div class="how-card glass-card reveal reveal-delay-1">
       <span class="how-num">// 04</span>
       <div class="how-marker"></div>
-      <div class="how-title">MARKET COMPARISON</div>
-      <p class="how-text">
-        Model probabilities are compared against the market-implied probability
-        derived from the current betting line. When the gap is meaningful —
-        that is an edge. The engine quantifies this precisely in percentage terms,
-        every time.
-      </p>
+      <div class="how-title">MARKET BLEND</div>
+      <div class="how-text">
+        <p>When real odds exist, the model is blended with the no-vig market price.</p>
+        <ul class="how-list">
+          <li>Moneylines, spreads and totals use real prices from several US sportsbooks where available</li>
+          <li>A price that is only model-estimated is labelled and kept out of the real-price figures</li>
+        </ul>
+      </div>
     </div>
 
     <div class="how-card glass-card reveal reveal-delay-2">
       <span class="how-num">// 05</span>
       <div class="how-marker"></div>
       <div class="how-title">PICK GRADING</div>
-      <p class="how-text">
-        Every model output is graded before it reaches you. Four tiers — PREMIUM (win prob ≥ 67%, EV &gt; +5%), OPTIMAL (≥ 62%, EV &gt; +3%), LEAN (55–62%, EV present), and SKIP (below threshold, no edge). Only picks that clear their tier's thresholds are surfaced.
-      </p>
+      <div class="how-text">
+        <p>Every pick is graded on win probability and price:</p>
+        <ul class="how-list">
+          <li>PREMIUM: 67%+ win prob and EV above 5%</li>
+          <li>OPTIMAL: 62%+ and EV above 3%</li>
+          <li>LEAN: 55%+ and EV above 1%</li>
+          <li>SKIP: anything below that</li>
+          <li>Hockey is graded on the real posted market price</li>
+        </ul>
+      </div>
     </div>
 
     <div class="how-card glass-card reveal reveal-delay-3">
       <span class="how-num">// 06</span>
       <div class="how-marker"></div>
-      <div class="how-title">ADAPTIVE INTELLIGENCE</div>
-      <p class="how-text">
-        The engine continuously audits its own performance. Recalibrations, simulations,
-        and cutting-edge statistical analysis run in the background — refining factor weights
-        and improving calibration over time. The system adapts. It does not stand still.
-      </p>
+      <div class="how-title">HIGH PROB TAG</div>
+      <div class="how-text">
+        <p>Hockey only. A green HIGH PROB tag marks a pick that is very likely to win but priced too short to count as value.</p>
+        <ul class="how-list">
+          <li>Moneyline or +1.5 underdog at 65%+ model probability, or a total at 56%+</li>
+          <li>Needs a real price and EV no worse than -7%</li>
+        </ul>
+      </div>
     </div>
+
+    <div class="how-card glass-card reveal reveal-delay-1">
+      <span class="how-num">// 07</span>
+      <div class="how-marker"></div>
+      <div class="how-title">ADJUSTED LINES</div>
+      <div class="how-text">
+        <p>For football and basketball spreads and totals, and hockey totals, the engine can lock a safer line than the one posted.</p>
+        <ul class="how-list">
+          <li>A cushion aimed at roughly a 60-70% hit rate</li>
+          <li>The original posted line is shown next to the locked one</li>
+          <li>The price on a shifted line is an estimate and is labelled</li>
+          <li>The tracker shows how the posted line would have done</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="how-card glass-card reveal reveal-delay-2">
+      <span class="how-num">// 08</span>
+      <div class="how-marker"></div>
+      <div class="how-title">LOCKED BEFORE KICKOFF</div>
+      <div class="how-text">
+        <p>An automated pipeline locks picks before the game starts:</p>
+        <ul class="how-list">
+          <li>Morning passes, and evening passes for the next day's games</li>
+          <li>A pre-kickoff watchdog re-checks the slate shortly before each game and locks anything that now qualifies</li>
+          <li>The engine never locks a game that has started</li>
+          <li>Any manual late lock is recorded and flagged as late</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="how-card glass-card reveal reveal-delay-3">
+      <span class="how-num">// 09</span>
+      <div class="how-marker"></div>
+      <div class="how-title">SETTLE AND TRACK</div>
+      <div class="how-text">
+        <p>Settlement is automated from official results.</p>
+        <ul class="how-list">
+          <li>Every settled pick counts in the public record, late-flagged locks included</li>
+          <li>Individual picks are never deleted to improve the record. When a whole product is retired (a league or a prop market), its picks leave the live record</li>
+          <li>Live record by period (today, yesterday, rolling 7 days, this month, last month, all time) and by league</li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 </section>
 </div>
@@ -1384,32 +1465,32 @@ footer::before{
     <div class="pipe-step">
       <div class="pipe-icon-box"><span class="pipe-glyph">IN</span></div>
       <div class="pipe-lbl">INGEST</div>
-      <div class="pipe-sub">Market odds, scores, form, stats, weather</div>
-    </div>
-    <div class="pipe-step">
-      <div class="pipe-icon-box"><span class="pipe-glyph">Σ</span></div>
-      <div class="pipe-lbl">PROCESS</div>
-      <div class="pipe-sub">Normalize, weight, contextualize</div>
+      <div class="pipe-sub">Ratings, schedules, results, sportsbook prices</div>
     </div>
     <div class="pipe-step">
       <div class="pipe-icon-box"><span class="pipe-glyph">P%</span></div>
       <div class="pipe-lbl">MODEL</div>
-      <div class="pipe-sub">Sport and league specific probability output</div>
+      <div class="pipe-sub">Ensemble and 25,000-run simulation per game</div>
     </div>
     <div class="pipe-step">
       <div class="pipe-icon-box"><span class="pipe-glyph">Δ</span></div>
-      <div class="pipe-lbl">COMPARE</div>
-      <div class="pipe-sub">Model probability vs market implied</div>
+      <div class="pipe-lbl">BLEND</div>
+      <div class="pipe-sub">Model probability blended with the no-vig market</div>
     </div>
     <div class="pipe-step">
       <div class="pipe-icon-box"><span class="pipe-glyph">EV</span></div>
       <div class="pipe-lbl">GRADE</div>
-      <div class="pipe-sub">Win probability %, edge quantified</div>
+      <div class="pipe-sub">Win probability and price: PREMIUM, OPTIMAL, LEAN, SKIP</div>
     </div>
     <div class="pipe-step">
-      <div class="pipe-icon-box"><span class="pipe-glyph">→</span></div>
-      <div class="pipe-lbl">DELIVER</div>
-      <div class="pipe-sub">Daily posts on X + Instagram, full picks delivered by email</div>
+      <div class="pipe-icon-box"><span class="pipe-glyph">LK</span></div>
+      <div class="pipe-lbl">LOCK</div>
+      <div class="pipe-sub">Locked automatically before the game starts, then sent out by email</div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-icon-box"><span class="pipe-glyph">W/L</span></div>
+      <div class="pipe-lbl">SETTLE</div>
+      <div class="pipe-sub">Graded from official results into the public record</div>
     </div>
   </div>
 </div>
@@ -1454,8 +1535,8 @@ footer::before{
         <p class="grade-desc">Moderate edge — situational value, smaller exposure advised</p>
       </div>
       <div class="grade-right">
-        <span class="grade-stat" style="color:#f000ff;text-shadow:0 0 10px rgba(240,0,255,.5)">WIN PROB &nbsp;55 – 62%</span>
-        <span class="grade-stat" style="color:#f000ff;text-shadow:0 0 10px rgba(240,0,255,.5)">EV &nbsp;PRESENT</span>
+        <span class="grade-stat" style="color:#f000ff;text-shadow:0 0 10px rgba(240,0,255,.5)">WIN PROB &nbsp;≥ 55%</span>
+        <span class="grade-stat" style="color:#f000ff;text-shadow:0 0 10px rgba(240,0,255,.5)">EV &nbsp;&gt; +1%</span>
       </div>
     </div>
 
@@ -1465,8 +1546,8 @@ footer::before{
         <p class="grade-desc">Below model threshold — no pick</p>
       </div>
       <div class="grade-right">
-        <span class="grade-stat" style="color:#ff2050;text-shadow:0 0 10px rgba(255,32,80,.5)">WIN PROB &nbsp;&lt; 55%</span>
-        <span class="grade-stat" style="color:#ff2050;text-shadow:0 0 10px rgba(255,32,80,.5)">NO EV EDGE</span>
+        <span class="grade-stat" style="color:#ff2050;text-shadow:0 0 10px rgba(255,32,80,.5)">BELOW LEAN THRESHOLDS</span>
+        <span class="grade-stat" style="color:#ff2050;text-shadow:0 0 10px rgba(255,32,80,.5)">NO PICK</span>
       </div>
     </div>
 
@@ -1493,23 +1574,43 @@ footer::before{
   <div class="trans-grid">
     <div class="trans-item glass-card reveal reveal-delay-1">
       <span class="trans-glyph">#</span>
-      <div><div class="trans-title">POLISHED ADAPTIVE LEARNING</div>
-      <p class="trans-text">Win, loss, push, and units are logged for every model output. The full history is visible, not cherry-picked. This leads to polished engines via adaptive learning.</p></div>
+      <div><div class="trans-title">PUBLIC AND TIME-STAMPED</div>
+      <p class="trans-text">Every locked pick is public and time-stamped before the game.</p></div>
     </div>
     <div class="trans-item glass-card reveal reveal-delay-2">
       <span class="trans-glyph">EV</span>
-      <div><div class="trans-title">GRADE EVERYTHING</div>
-      <p class="trans-text">Outputs without strong EV are labeled accordingly. "Skip" is a valid model output — and the right one when data supports it.</p></div>
+      <div><div class="trans-title">LOSSES STAY IN</div>
+      <p class="trans-text">Wins, losses and pushes all stay in the record. Individual picks are never removed to improve it; when a whole product is retired, its picks leave the live record.</p></div>
     </div>
-<div class="trans-item glass-card reveal reveal-delay-4">
-      <span class="trans-glyph">↻</span>
-      <div><div class="trans-title">ENGINE PERFORMANCE RECAPS</div>
-      <p class="trans-text">Every settled pick is recapped with outcome and unit result — posted daily so the engine's track record is always visible.</p></div>
+    <div class="trans-item glass-card reveal reveal-delay-3">
+      <span class="trans-glyph">$</span>
+      <div><div class="trans-title">REAL PRICES, LABELLED</div>
+      <p class="trans-text">The real posted price is shown. Estimated prices are labelled as estimates. Units and ROI appear only on prices labelled real or estimated.</p></div>
+    </div>
+    <div class="trans-item glass-card reveal reveal-delay-4">
+      <span class="trans-glyph">±</span>
+      <div><div class="trans-title">ADJUSTED LINES, SCORED</div>
+      <p class="trans-text">A locked adjusted line shows the original posted line beside it, with a scorecard of how the posted line would have done.</p></div>
     </div>
     <div class="trans-item glass-card reveal reveal-delay-1">
+      <span class="trans-glyph">A+</span>
+      <div><div class="trans-title">GRADES ARE PUBLISHED</div>
+      <p class="trans-text">The PREMIUM, OPTIMAL, LEAN and SKIP definitions are public. Skip is a valid output.</p></div>
+    </div>
+    <div class="trans-item glass-card reveal reveal-delay-2">
+      <span class="trans-glyph">!</span>
+      <div><div class="trans-title">LATE LOCKS FLAGGED</div>
+      <p class="trans-text">A pick locked late is recorded and flagged as late. It still counts in the record.</p></div>
+    </div>
+    <div class="trans-item glass-card reveal reveal-delay-3">
+      <span class="trans-glyph">↻</span>
+      <div><div class="trans-title">ONE LEDGER</div>
+      <p class="trans-text">The figures are generated straight from the same ledger the engine locks into. They are not hand-edited.</p></div>
+    </div>
+    <div class="trans-item glass-card reveal reveal-delay-4">
       <span class="trans-glyph">~</span>
       <div><div class="trans-title">PROBABILISTIC, NOT PREDICTIVE</div>
-      <p class="trans-text">Clairvoyance projects probabilities — not certainties. The model is right more often when edge is present, not 100% of the time.</p></div>
+      <p class="trans-text">Clairvoyance projects probabilities, not certainties. A pick with an edge can still lose.</p></div>
     </div>
   </div>
 </section>
@@ -1597,6 +1698,7 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
   const updated = document.getElementById('perfUpdated');
   if(!grid) return;
   const pctColor = pct => pct === null ? 'var(--t3)' : '#00e644';
+  let perfData = null;
   function loadEnginePerformance(){
     // Subscriber-scoped snapshot (nfl/cfb/nba/nhl/soccer only) -- not
     // the full engine_performance.json, which also includes personal-
@@ -1606,22 +1708,8 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
     fetch('https://purple-wraith.github.io/clairvoyance-backend/engine_performance_subscriber.json', {cache:'no-store'})
       .then(r => r.ok ? r.json() : Promise.reject(r.status))
       .then(data => {
-        const periods = data.periods || [];
-        grid.innerHTML = periods.map(p => {
-          const hasData = p.n > 0;
-          const pc = pctColor(p.pct);
-          return `<div class="glass-card perf-card">
-            <div class="perf-card-lbl">${p.label}${p.sub ? '<span>'+p.sub+'</span>' : ''}</div>
-            ${hasData ? `
-            <div class="perf-card-rec">${p.w}W&#8211;${p.l}L</div>
-            <div class="perf-card-stats">
-              <span style="color:${pc}">${(p.pct*100).toFixed(1)}%</span>
-              <span style="color:#00e644">${p.units>=0?'+':''}${p.units.toFixed(1)}u</span>
-            </div>` : `
-            <div class="perf-card-rec">0W&#8211;0L</div>
-            <div class="perf-card-stats"><span style="color:var(--t3)">N/A</span><span style="color:var(--t3)">N/A</span></div>`}
-          </div>`;
-        }).join('');
+        perfData = data;
+        renderPerf();
         if(updated && data.generated_at) updated.textContent = 'Last updated ' + data.generated_at;
       })
       .catch(() => {
@@ -1633,8 +1721,50 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
       })
       .finally(() => { grid.dataset.loadedOnce = '1'; });
   }
+  // ROLLING 7D is recomputed here, in the browser, from the JSON's
+  // rolling7_series ([lockedAtEpochMs, outcome 1=win/0=loss, units] per
+  // recent settled pick, pushes already excluded) against the VIEWER'S
+  // clock, so the figure matches the engine terminal's rolling window at
+  // any moment instead of being frozen at the JSON's build time. If the
+  // series is missing/empty, the precomputed ROLLING_7D period is used
+  // exactly as before.
+  function withLiveRolling7(p, series){
+    if(p.key !== 'ROLLING_7D' || !Array.isArray(series) || !series.length) return p;
+    const cutoff = Date.now() - 7 * 86400000;
+    let w = 0, l = 0, units = 0;
+    series.forEach(r => {
+      if(!Array.isArray(r) || !(r[0] >= cutoff)) return;
+      if(r[1] === 1) w++; else if(r[1] === 0) l++; else return;
+      units += Number(r[2]) || 0;
+    });
+    const n = w + l;
+    return Object.assign({}, p, { w, l, n, pct: n ? w / n : null, units });
+  }
+  function renderPerf(){
+    if(!perfData) return;
+    const periods = (perfData.periods || []).map(p => withLiveRolling7(p, perfData.rolling7_series));
+    grid.innerHTML = periods.map(p => {
+      const hasData = p.n > 0;
+      const pc = pctColor(p.pct);
+      return `<div class="glass-card perf-card">
+        <div class="perf-card-lbl">${p.label}${p.sub ? '<span>'+p.sub+'</span>' : ''}</div>
+        ${hasData ? `
+        <div class="perf-card-rec">${p.w}W&#8211;${p.l}L</div>
+        <div class="perf-card-stats">
+          <span style="color:${pc}">${(p.pct*100).toFixed(1)}%</span>
+          <span style="color:#00e644">${p.units>=0?'+':''}${p.units.toFixed(1)}u</span>
+        </div>` : `
+        <div class="perf-card-rec">0W&#8211;0L</div>
+        <div class="perf-card-stats"><span style="color:var(--t3)">N/A</span><span style="color:var(--t3)">N/A</span></div>`}
+      </div>`;
+    }).join('');
+  }
   loadEnginePerformance();
   setInterval(loadEnginePerformance, PERF_REFRESH_MS);
+  // Re-render from the cached JSON every minute (no network) so the
+  // ROLLING 7D window keeps sliding with the viewer's clock on a tab
+  // that stays open between the 15-minute refetches.
+  setInterval(renderPerf, 60 * 1000);
 })();
 
 // ── Sport Performance section — fetches the JSON snapshot the backend's
@@ -1645,8 +1775,9 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
 (function(){
   const stack = document.getElementById('sperfStack');
   const toggle = document.getElementById('sperfToggle');
+  const sports = document.getElementById('sperfSports');
   const updated = document.getElementById('sperfUpdated');
-  if(!stack || !toggle) return;
+  if(!stack || !toggle || !sports) return;
   const pctColor = pct => pct === null ? 'var(--t3)' : pct >= .62 ? '#00da88' : pct >= .5 ? 'var(--cyan)' : '#ff2090';
   let sperfData = null;
   let activePeriod = 'allTime';
@@ -1671,7 +1802,24 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
   // Bundesliga/MLS added 2026-09-28: retired and purged from display
   // (2026-09-23 / 2026-09-27). The backend's leagueMap drops them too;
   // listed here for the same stale-cached-JSON reason as MLB.
-  const HIDDEN_LEAGUES = new Set(['WNBA', 'ATP', 'WTA', 'College Hockey', 'MLB', 'Bundesliga', 'MLS']);
+  const HIDDEN_LEAGUES = new Set(['WNBA', 'ATP', 'WTA', 'College Hockey', 'MLB', 'Bundesliga', 'MLS', 'BUND']);
+
+  // The backend JSON carries only a league label per row (no sport), so
+  // sport grouping lives here: an explicit league -> sport map, keyed by
+  // the JSON's own labels (uppercased for matching). Array order is the
+  // display order inside each sport group. A league missing from this
+  // map is grouped under OTHER (shown only on the ALL filter) instead of
+  // being silently dropped.
+  const SPORT_GROUPS = [
+    { key: 'football',   name: 'FOOTBALL',   leagues: ['NFL', 'CFB'] },
+    { key: 'basketball', name: 'BASKETBALL', leagues: ['NBA'] },
+    { key: 'hockey',     name: 'HOCKEY',     leagues: ['NHL', 'SHL', 'LIIGA', 'NLA', 'EXTRALIGA'] },
+    { key: 'soccer',     name: 'SOCCER',     leagues: ['PREMIER LEAGUE', 'LA LIGA', 'SERIE A', 'CHAMPIONS LEAGUE'] }
+  ];
+  const LEAGUE_SPORT = {};
+  SPORT_GROUPS.forEach(g => g.leagues.forEach(l => { LEAGUE_SPORT[l] = g.key; }));
+  const sportOf = lbl => LEAGUE_SPORT[String(lbl).toUpperCase()] || 'other';
+  let activeSport = 'all';
 
   function renderPeriod(){
     if(!sperfData) return;
@@ -1687,7 +1835,7 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
     // CSS swaps to the short one under the site's existing 768px
     // breakpoint (see .sperf-name-abbr below).
     const mobileAbbr = { 'Premier League': 'Prem. League' };
-    stack.innerHTML = leagues.map(lg => {
+    const rowHtml = lg => {
       const pc = pctColor(lg.pct);
       const pctStr = lg.pct !== null ? (lg.pct * 100).toFixed(1) + '%' : '--';
       const nameHtml = mobileAbbr[lg.lbl]
@@ -1701,8 +1849,33 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
           <span class="sperf-units" style="color:${lg.units>=0?'#00da88':'#ff2090'}">${lg.units>=0?'+':''}${lg.units.toFixed(1)}u</span>
         </div>
       </div>`;
-    }).join('');
+    };
+    // Group by sport (canonical league order inside each group), then
+    // apply the sport filter. OTHER only ever shows under ALL.
+    const groups = SPORT_GROUPS.map(g => ({
+      key: g.key, name: g.name,
+      rows: g.leagues
+        .map(l => leagues.find(lg => String(lg.lbl).toUpperCase() === l))
+        .filter(Boolean)
+    }));
+    groups.push({ key: 'other', name: 'OTHER', rows: leagues.filter(lg => sportOf(lg.lbl) === 'other') });
+    const shown = groups.filter(g => g.rows.length && (activeSport === 'all' || g.key === activeSport));
+    if(!shown.length){
+      stack.innerHTML = '<div class="perf-loading">NO SETTLED BETS FOR THIS SPORT IN THIS PERIOD</div>';
+      return;
+    }
+    stack.innerHTML = shown.map(g =>
+      `<div class="sperf-grp">// ${g.name}</div>` + g.rows.map(rowHtml).join('')
+    ).join('');
   }
+
+  sports.querySelectorAll('.sperf-sport-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeSport = btn.dataset.sport;
+      sports.querySelectorAll('.sperf-sport-btn').forEach(b => b.classList.toggle('act', b === btn));
+      renderPeriod();
+    });
+  });
 
   toggle.querySelectorAll('.sperf-toggle-btn').forEach(btn => {
     btn.addEventListener('click', () => {
