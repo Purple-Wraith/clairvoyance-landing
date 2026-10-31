@@ -747,6 +747,31 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 }
 .price-readout-amount span{font-size:14px;color:var(--t3);font-weight:400;margin-left:4px}
 
+.ref-by-row{margin-top:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.ref-by-row label{font-family:var(--tech);font-size:11px;letter-spacing:1.5px;color:var(--t3);text-transform:uppercase}
+.ref-by-row input{
+  flex:1 1 240px;max-width:380px;min-height:44px;padding:10px 14px;border-radius:4px;
+  background:rgba(15,5,28,.6);border:1px solid rgba(255,255,255,.14);color:var(--t1);
+  font-family:var(--tech);font-size:14px;letter-spacing:.5px;
+}
+.ref-by-row input:focus{outline:none;border-color:rgba(0,240,255,.6);box-shadow:0 0 14px rgba(0,240,255,.2)}
+.ref-by-row input::placeholder{color:var(--t3)}
+
+.refer-card{margin-top:44px;padding:30px 32px;border:1px solid rgba(0,240,255,.3)!important}
+.refer-label{font-family:var(--tech);font-size:12px;letter-spacing:2.5px;color:var(--cyan);text-transform:uppercase}
+.refer-title{
+  font-family:var(--orb);font-size:clamp(22px,3.4vw,30px);font-weight:900;color:#fff;margin:8px 0 12px;
+  text-shadow:0 0 14px rgba(0,240,255,.45);text-wrap:balance;
+}
+.refer-body{font-size:14px;line-height:1.7;color:var(--t2);max-width:760px}
+.refer-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.refer-step{padding:16px 16px 14px;border-radius:8px;background:rgba(0,240,255,.05);border:1px solid rgba(0,240,255,.16)}
+.refer-step b{display:block;font-family:var(--orb);font-size:12px;letter-spacing:1.5px;color:var(--cyan);margin-bottom:6px}
+.refer-step span{font-size:13px;line-height:1.55;color:var(--t2)}
+.refer-rules{margin:18px 0 0;padding-left:20px;font-size:13px;line-height:1.65;color:var(--t2);max-width:760px}
+.refer-rules li{margin-bottom:5px}
+@media(max-width:768px){.refer-steps{grid-template-columns:1fr}.refer-card{padding:24px 20px}}
+
 .price-table-toggle{
   font-family:var(--tech);font-size:17px;letter-spacing:1.5px;color:var(--purple);
   text-shadow:0 0 8px rgba(240,0,255,.5);
@@ -1282,6 +1307,11 @@ footer::before{
     <div class="price-readout-amount" id="priceReadoutAmount">—</div>
   </div>
 
+  <div class="ref-by-row reveal">
+    <label for="refByInput">Did a Clairvoyance subscriber refer you? (optional)</label>
+    <input id="refByInput" type="email" inputmode="email" autocomplete="off" maxlength="120" placeholder="your referrer&rsquo;s email address">
+  </div>
+
   <div class="reveal reveal-delay-2">
     <div id="ctaPlaceholder" class="sub-cta" style="max-width:280px;padding:13px 0;margin-top:18px;background:rgba(240,0,255,.12);color:#f000ff;border:1px solid rgba(240,0,255,.4);opacity:.4;cursor:default">SELECT SPORTS TO CONTINUE</div>
     <div id="mailOptsRow" class="mail-opts-row" style="display:none">
@@ -1299,6 +1329,23 @@ footer::before{
     <div class="price-row glass-card price-best"><div class="price-left"><span class="price-name">5 SPORTS — ALL ACCESS</span><span class="price-detail">$15.00 avg / sport</span></div><div class="price-right"><span class="price-amount">$75</span><span class="price-period">/ 30 days</span></div></div>
   </div>
 
+  <div class="refer-card glass-card reveal" id="refer">
+    <div class="refer-label">Refer a friend</div>
+    <h3 class="refer-title">Get a month free</h3>
+    <p class="refer-body">Know someone who&rsquo;d get value from Clairvoyance? When a friend you refer joins as a new subscriber, <b>you</b> get 30 days free of any one sport &mdash; your choice. Your friend pays the regular price; the free month is your thank-you.</p>
+    <div class="refer-steps">
+      <div class="refer-step"><b>1 &middot; SHARE</b><span>Tell a friend about Clairvoyance and send them here.</span></div>
+      <div class="refer-step"><b>2 &middot; THEY NAME YOU</b><span>When they request access, they enter <em>your</em> email address in the &ldquo;Did a Clairvoyance subscriber refer you?&rdquo; box above.</span></div>
+      <div class="refer-step"><b>3 &middot; YOU PICK A SPORT</b><span>Once they&rsquo;re added, we email you. Reply with the sport you want and your free month starts.</span></div>
+    </div>
+    <ul class="refer-rules">
+      <li>You must already be a Clairvoyance subscriber.</li>
+      <li>Your friend must be a brand-new subscriber &mdash; never on any of our lists before &mdash; and must enter your email address when they request access.</li>
+      <li>One free month for each new friend who joins. You choose the sport.</li>
+      <li>Already have that sport? The 30 days are added after your current access ends. Otherwise a free 30-day month starts when you choose.</li>
+    </ul>
+  </div>
+
   <script>
     (function(){
       var PRICING = {1:20,2:30,3:45,4:60,5:75};
@@ -1311,6 +1358,8 @@ footer::before{
       var placeholder = document.getElementById('ctaPlaceholder');
       var mailRow = document.getElementById('mailOptsRow');
       var ctaDefault = document.getElementById('ctaDefault');
+      var refInput = document.getElementById('refByInput');
+      refInput.addEventListener('input', render);
 
       function render(){
         var n = selected.size;
@@ -1334,8 +1383,10 @@ footer::before{
         // and where a plain mailto: link opens directly, no extra tap
         // through a browser-based webmail compose screen).
         var subject = 'Clairvoyance Access Request';
+        var refBy = (refInput.value || '').trim();
         var body = 'I\'d like access to: ' + names + '\n' +
-          'Sports: ' + n + ' | Price: $' + price + ' / 30 days\n\n' +
+          'Sports: ' + n + ' | Price: $' + price + ' / 30 days\n' +
+          (refBy ? 'Referred by: ' + refBy + '\n(Referral note: ' + refBy + ' earns one free month of a sport of their choice once I\'m added as a new subscriber. Referrals count only for brand-new subscribers, and the referrer must already be a subscriber.)\n' : '') + '\n' +
           '(Send this as-is and we\'ll reply with Venmo payment instructions.)';
         var subjEnc = encodeURIComponent(subject);
         var bodyEnc = encodeURIComponent(body);
